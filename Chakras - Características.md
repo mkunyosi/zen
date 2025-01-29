@@ -1,6 +1,7 @@
 ## **🌈 Chakras, Funções, Cores e Cristais Correspondentes**
 
 ### **🔴 1. Chakra Básico (Muladhara) – Segurança e Sobrevivência**  
+✅ **Função:** Responsável pela estabilidade, segurança, instintos de sobrevivência e vitalidade física.  
 📍 **Localização:** Base da coluna  
 📍 **Elemento:** Terra  
 🎨 **Cor de Harmonização:** **Vermelho** 🔴  
@@ -9,8 +10,9 @@
 - **Granada** → Coragem, força de vontade  
 - **Turmalina Negra** → Proteção energética  
 
-✅ **Função:** Responsável pela estabilidade, segurança, instintos de sobrevivência e vitalidade física.  
 ✅ **Equilibrado (Virtudes):** Segurança, aterramento, vitalidade, força de vontade, estabilidade financeira.  
+
+
 ⚠️ **Desequilibrado (Fraquezas):**  
 🔻 **Bloqueado:** Insegurança, medos excessivos, desmotivação, falta de energia, problemas financeiros.  
 🔺 **Hiperativo:** Agressividade, materialismo excessivo, ganância, arrogância.  
