@@ -1,7 +1,13 @@
+## **🌈 Chakras, Funções, Cores e Cristais Correspondentes**
+
 ### **🔴 1. Chakra Básico (Muladhara) – Segurança e Sobrevivência**  
 📍 **Localização:** Base da coluna  
 📍 **Elemento:** Terra  
 🎨 **Cor de Harmonização:** **Vermelho** 🔴  
+💎 **Cristais Indicados:**  
+- **Jaspe Vermelho** → Aterramento, resistência física  
+- **Granada** → Coragem, força de vontade  
+- **Turmalina Negra** → Proteção energética  
 
 ✅ **Função:** Responsável pela estabilidade, segurança, instintos de sobrevivência e vitalidade física.  
 ✅ **Equilibrado (Virtudes):** Segurança, aterramento, vitalidade, força de vontade, estabilidade financeira.  
@@ -17,6 +23,10 @@
 📍 **Localização:** Abaixo do umbigo  
 📍 **Elemento:** Água  
 🎨 **Cor de Harmonização:** **Laranja** 🟠  
+💎 **Cristais Indicados:**  
+- **Cornalina** → Criatividade, vitalidade, motivação  
+- **Calcita Laranja** → Alegria, fluidez emocional  
+- **Âmbar** → Proteção energética, energia solar  
 
 ✅ **Função:** Regula a criatividade, sexualidade, emoções e relacionamentos.  
 ✅ **Equilibrado (Virtudes):** Criatividade, prazer, conexão emocional saudável, sensualidade equilibrada.  
@@ -32,6 +42,11 @@
 📍 **Localização:** Região do estômago  
 📍 **Elemento:** Fogo  
 🎨 **Cor de Harmonização:** **Amarelo** 🟡  
+💎 **Cristais Indicados:**  
+- **Citrino** → Confiança, prosperidade, clareza mental  
+- **Olho de Tigre** → Coragem, proteção, tomada de decisão  
+- **Topázio Amarelo** → Equilíbrio emocional, força de vontade  
+
 
 ✅ **Função:** Relacionado à autoestima, força de vontade e capacidade de realização.  
 ✅ **Equilibrado (Virtudes):** Autoconfiança, liderança, autodisciplina, motivação, poder pessoal.  
@@ -47,6 +62,10 @@
 📍 **Localização:** Centro do peito  
 📍 **Elemento:** Ar  
 🎨 **Cor de Harmonização:** **Verde** 💚 (ou **Rosa** 💖)  
+💎 **Cristais Indicados:**  
+- **Quartzo Rosa** → Amor próprio, harmonia nos relacionamentos  
+- **Esmeralda** → Cura emocional, compaixão  
+- **Turmalina Verde** → Equilíbrio emocional, regeneração  
 
 ✅ **Função:** Governa o amor, compaixão, relacionamentos e equilíbrio emocional.  
 ✅ **Equilibrado (Virtudes):** Amor próprio, harmonia nos relacionamentos, empatia, perdão, generosidade.  
@@ -62,6 +81,10 @@
 📍 **Localização:** Garganta  
 📍 **Elemento:** Éter  
 🎨 **Cor de Harmonização:** **Azul Claro** 🔵  
+💎 **Cristais Indicados:**  
+- **Água-marinha** → Comunicação clara, expressão emocional  
+- **Sodalita** → Equilíbrio mental, autenticidade  
+- **Lápis-lazúli** → Intuição, expressão da verdade  
 
 ✅ **Função:** Responsável pela comunicação, expressão pessoal e autenticidade.  
 ✅ **Equilibrado (Virtudes):** Boa comunicação, expressão clara e honesta, escuta ativa, criatividade verbal.  
@@ -77,6 +100,10 @@
 📍 **Localização:** Testa (Terceiro Olho)  
 📍 **Elemento:** Luz  
 🎨 **Cor de Harmonização:** **Índigo (Azul Anil)** 🟣  
+💎 **Cristais Indicados:**  
+- **Ametista** → Intuição, clareza espiritual, proteção  
+- **Fluorita Roxa** → Concentração, visão espiritual  
+- **Lápis-lazúli** → Expansão mental, percepção além do físico  
 
 ✅ **Função:** Governa a intuição, percepção espiritual e clareza mental.  
 ✅ **Equilibrado (Virtudes):** Intuição desenvolvida, mente clara, capacidade de enxergar além das aparências, sabedoria interior.  
@@ -92,6 +119,10 @@
 📍 **Localização:** Topo da cabeça  
 📍 **Elemento:** Consciência Cósmica  
 🎨 **Cor de Harmonização:** **Violeta ou Branco** ⚪🟣  
+💎 **Cristais Indicados:**  
+- **Quartzo Branco (Cristal de Rocha)** → Expansão da consciência, amplificação energética  
+- **Ametista** → Conexão com o divino, elevação espiritual  
+- **Selenita** → Purificação energética, clareza mental  
 
 ✅ **Função:** Ligado à espiritualidade, iluminação e conexão com o divino.  
 ✅ **Equilibrado (Virtudes):** Sentimento de unidade com o universo, consciência elevada, paz interior, sabedoria espiritual.  
@@ -103,15 +134,15 @@
 
 ---
 
-## **🌈 Resumo das Cores e Funções dos Chakras**  
+## **🌈 Resumo Completo: Chakras, Cores e Cristais Correspondentes**  
 
-| Chakra           | Localização         | Função                    | Cor de Harmonização |
-|-----------------|--------------------|---------------------------|---------------------|
-| **Muladhara**   | Base da coluna      | Segurança e sobrevivência | **Vermelho** 🔴     |
-| **Swadhisthana**| Abaixo do umbigo    | Criatividade e prazer     | **Laranja** 🟠      |
-| **Manipura**    | Região do estômago  | Autoconfiança e poder     | **Amarelo** 🟡      |
-| **Anahata**     | Centro do peito     | Amor e compaixão          | **Verde/Rosa** 💚💖 |
-| **Vishuddha**   | Garganta            | Comunicação e expressão   | **Azul Claro** 🔵  |
-| **Ajna**        | Testa (3º Olho)     | Intuição e percepção      | **Índigo** 🟣       |
-| **Sahasrara**   | Topo da cabeça      | Conexão espiritual        | **Violeta/Branco** ⚪🟣 |
+| Chakra           | Cor   | Função Principal        | Cristais Indicados |
+|-----------------|-------|------------------------|-------------------|
+| **Muladhara**   | 🔴 Vermelho  | Segurança e aterramento  | Jaspe Vermelho, Granada, Turmalina Negra |
+| **Swadhisthana**| 🟠 Laranja  | Criatividade e prazer  | Cornalina, Calcita Laranja, Âmbar |
+| **Manipura**    | 🟡 Amarelo  | Poder pessoal e autoconfiança | Citrino, Olho de Tigre, Topázio Amarelo |
+| **Anahata**     | 💚 Verde 💖 Rosa | Amor e compaixão  | Quartzo Rosa, Esmeralda, Turmalina Verde |
+| **Vishuddha**   | 🔵 Azul Claro | Comunicação e expressão | Água-marinha, Sodalita, Lápis-lazúli |
+| **Ajna**        | 🟣 Índigo | Intuição e percepção  | Ametista, Fluorita Roxa, Lápis-lazúli |
+| **Sahasrara**   | ⚪ Branco 🟣 Violeta | Conexão espiritual | Quartzo Branco, Ametista, Selenita |
 
