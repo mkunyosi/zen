@@ -1,0 +1,307 @@
+<!doctype html>
+<html lang="pt-BR"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Mapa Numerológico Pitagórico</title>
+<style>
+:root{--bg:#fafaf7;--fg:#1d1d28;--cd:#fff;--mu:#666675;--ac:#8a5a00;--bd:#d9d9d0;--wr:#fff1c9;--hl:#ffe9a8;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#10142a;--fg:#ececf5;--cd:#1a1f3d;--mu:#a3a6c4;--ac:#e0b04a;--bd:#353b6c;--wr:#3b3216;--hl:#4a3d14;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#10142a;--fg:#ececf5;--cd:#1a1f3d;--mu:#a3a6c4;--ac:#e0b04a;--bd:#353b6c;--wr:#3b3216;--hl:#4a3d14;color-scheme:dark}
+body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.55 Georgia,'Times New Roman',serif}
+main{max-width:980px;margin:0 auto;padding:16px}
+h1{font-size:1.5rem;margin:.2em 0;color:var(--ac)}h3{color:var(--ac);margin:1.2em 0 .3em}
+.cd{background:var(--cd);border:1px solid var(--bd);border-radius:10px;padding:12px;margin:10px 0}
+.g{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px}
+label{font:13px system-ui,sans-serif;color:var(--mu);display:block}
+input,select,textarea,button{font:15px system-ui,sans-serif;padding:7px;border:1px solid var(--bd);border-radius:7px;background:var(--bg);color:var(--fg);width:100%;box-sizing:border-box}
+button{width:auto;cursor:pointer;background:var(--ac);color:var(--bg);border:0;padding:8px 14px}
+.tabs{display:flex;gap:6px;flex-wrap:wrap;margin:10px 0}.tabs button{background:var(--cd);color:var(--fg);border:1px solid var(--bd)}.tabs button.on{background:var(--ac);color:var(--bg)}
+.al{background:var(--wr);border-left:4px solid var(--ac);padding:6px 10px;margin:6px 0;font:14px system-ui,sans-serif;border-radius:4px}
+.sc{overflow-x:auto;max-height:520px;overflow-y:auto}
+table{border-collapse:collapse;width:100%;font:14px system-ui,sans-serif}th,td{border-bottom:1px solid var(--bd);padding:4px 8px;text-align:left;white-space:nowrap}
+tr.now td{background:var(--hl)}.dp{color:var(--ac);font-weight:700}
+.big{font-size:1.6rem;font-weight:700;color:var(--ac)}.mu{color:var(--mu);font:13px system-ui,sans-serif}
+.br{display:grid;grid-template-columns:minmax(110px,38%) 1fr 44px;gap:8px;align-items:center;margin:4px 0;font:13px system-ui,sans-serif}.tk{background:var(--bd);border-radius:5px;height:14px;overflow:hidden}.tk i{display:block;height:100%;background:var(--ac)}
+.cl{font:13px/1.45 system-ui,sans-serif}.cl h2{margin:.1em 0;color:var(--ac)}.cl2{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:8px}.bx{border:1px solid var(--bd);border-radius:8px;padding:8px;background:var(--cd)}.cl ul{margin:4px 0;padding-left:18px}.cl .cd{margin:0;padding:8px}.cl .br{grid-template-columns:minmax(90px,42%) 1fr 40px}
+@media print{main>*:not(#rc){display:none!important}#rc{display:block!important}.nop{display:none}body{background:#fff;color:#000}@page{size:A4;margin:10mm}.cl{font-size:10.5px}}
+.pn{display:none}.pn.on{display:block}textarea{min-height:420px;font:12px/1.4 ui-monospace,monospace}.sm{min-height:60px!important;font:14px/1.4 system-ui,sans-serif!important}.et{display:flex;gap:6px;flex-wrap:wrap;margin:8px 0}.et button{background:var(--cd);color:var(--fg);border:1px solid var(--bd)}.et button.on{background:var(--ac);color:var(--bg)}#ed select,#ed input{width:auto;max-width:100%}#ed label{margin:4px 0}#ed input[data-p$=".t"],#ed input[data-p$=".kw"],#ed input[data-p$=".pr"],#ed input[data-p$=".f"],#ed input[data-p$=".c"],#ed input[data-p$=".z"]{width:100%}
+</style></head><body><main>
+<h1>Mapa Numerológico Natal (MNN)</h1>
+<div class="mu">Ferramenta de uso exclusivo do numerólogo. Mapa somente com autorização do portador; até 12 anos, interpretar apenas para pais ou responsáveis.</div>
+<div class="cd"><div class="g">
+<div style="grid-column:span 2"><label>Nome completo de solteiro</label><input id="nm" placeholder="Nome completo"></div>
+<div><label>Nascimento</label><input id="dt" type="date"></div>
+<div><label>Data de referência (Ano Pessoal)</label><input id="rf" type="date"></div>
+<div><label>Letra Y</label><select id="yy"><option value="0">Consoante</option><option value="1">Vogal</option></select></div>
+<div style="align-self:end"><button id="go">Calcular</button></div></div></div>
+<div id="al"></div>
+<div class="tabs"><button data-p="rs" class="on">Resumo</button><button data-p="rl">Relatório técnico</button><button data-p="rc">Relatório da pessoa</button><button data-p="tl">Linha do tempo</button><button data-p="pa">Ano pessoal</button><button data-p="dd">Dados e regras</button></div>
+<div id="rs" class="pn on"></div><div id="rl" class="pn"></div><div id="rc" class="pn"></div><div id="tl" class="pn"></div><div id="pa" class="pn"><div class="cd"><div class="mu">Escolha o ano pessoal (que começa no aniversário) e o mês para analisar o AP, os trimestres (CT) e o mês pessoal.</div><div class="g"><div><label>Ano pessoal</label><input id="pay" type="number"></div><div><label>Mês pessoal (1–12)</label><input id="pam" type="number" min="1" max="12"></div><div style="align-self:end"><button id="pab">Analisar</button></div></div></div><div id="par"></div></div>
+<div id="dd" class="pn"><div class="cd"><div class="mu">Edite o conteúdo da apostila e as regras por seção, no mesmo formato da apostila. As alterações valem depois de “Salvar e recalcular”.</div>
+<div class="et" id="et"></div><div id="ed"></div>
+<p><button id="sv2">Salvar e recalcular</button> <button id="ex">Exportar JSON (arquivo)</button> <button id="imb">Importar JSON (arquivo)…</button> <button id="rst">Restaurar padrão</button><input type="file" id="im" accept=".json,application/json" hidden></p><div id="em"></div>
+<details><summary>Avançado: JSON completo (importar/exportar)</summary><div class="mu">Expressões das regras usam MO, EU, EX, CD, C1–C3, D1, D2, DM, R1–R4 e as funções c(n), nd(n), ds(n) e P([...]).</div><textarea id="js" spellcheck="false"></textarea><p><button id="sv">Aplicar JSON</button> <button id="cp">Copiar JSON</button></p></details></div></div>
+</main>
+<script>
+const DEF={
+cfg:{pp:7,yVogal:false,idades:[28,56],f:{d1:"d-m",d2:"m-y",dm:"D1-D2"},conq:[70,77,91],esp:40,vic:[14,49],sim:21,
+ sex:{int:49,med:[28,42],fra:21}},
+num:{
+1:{t:"Início",kw:"liderança, iniciativa e coragem",p:["forte, original","independente","determinado","com iniciativa","liderança","coragem"],n:["arrogante","sabidão","orgulhoso","solitário","autoritário","egoísta","prepotente"],pr:"diretor de empresa, ativista, rompedor de costumes",z:"Áries"},
+2:{t:"União",kw:"parceria, concessão e flexibilidade",p:["flexível","cordial","diplomático","cooperador","facilidade de relacionamento","gentil"],n:["dependente","submisso","tímido, inseguro","indeciso","apático","depressivo"],pr:"RH, assistente social, diplomata",z:"aspectos de Aquário e Câncer"},
+3:{t:"Crescimento",kw:"comunicação, criatividade e expansão",p:["imaginativo, criativo","social, comunicativo","divertido, otimista","valoriza a beleza","fértil, multiplicador","múltiplos talentos"],n:["desordenado","superficial","tagarela, fofoqueiro","exagerado, extravagante","exibicionista, vaidoso","ciumento"],pr:"marketing, vendas, publicidade, comunicação",z:"Gêmeos"},
+4:{t:"Estabilidade",kw:"estabilidade, trabalho e segurança",p:["ordeiro, disciplinado","equilibrado, estável","dedicado, trabalhador nato","honesto, sincero, leal","persistente"],n:["sistemático","teimoso, inflexível, sovina","conservador","medo do novo","rígido","tedioso"],pr:"contador, administrativo, operações de rotina",z:"Touro e aspectos de Capricórnio"},
+5:{t:"Transformação",kw:"liberdade, mudança e aventura",p:["livre, independente","versátil","aventureiro, viajante","ousado, corajoso","sociável","raciocínio muito rápido","sensualidade ativa"],n:["irresponsável","instável","ansioso, inquieto","impulsivo","insatisfeito","abusivo, vícios"],pr:"turismo, embaixador, vendas, repórter, aviador",z:"Sagitário, com aspectos de Balança e Leão"},
+6:{t:"Harmonia",kw:"afetividade, família e conciliação",p:["tranquilo, pacífico","emotivo, afetuoso","caseiro","amigo, simpático","conciliador","bondoso, solícito","centro do clã"],n:["acomodado","tendência a engordar","controlador da vida alheia","apego excessivo aos familiares","ciumento, passional","explosivo emocional","presunçoso"],pr:"RH, trabalhos domésticos, cozinheiro, assistente social",z:"aspectos de Câncer, Balança e Aquário"},
+7:{t:"Perfeição",kw:"sabedoria, análise e profundidade",p:["analítico, autocontrolado","introspectivo","intelectual, culto","perfeccionista","sensível, intuitivo","místico","seletivo, refinado"],n:["arredio, confuso","excessivamente racional","mania de criticar","sarcástico, cínico","vícios, tendência a dogmas","solitário","autodestrutivo"],pr:"psicólogo, psiquiatra, arquiteto, informática, religião",z:"Virgem"},
+8:{t:"Justiça",kw:"justiça, autoridade e retidão",p:["direto, objetivo, verdadeiro","organizado, prático","visionário","sucesso material, prestígio","ambicioso","retidão","cheio de energia"],n:["injusto, dominador","vingativo, frio","ganancioso","excesso de apego ao material","autoritário","mau uso da autoridade","sede de poder"],pr:"mercado financeiro, advogado, juiz, político",z:"Leão"},
+9:{t:"Universal",kw:"espiritualidade, altruísmo e sabedoria",p:["humano, solícito","compreensivo, generoso","visionário","magnético, intuitivo","altruísta","pode ser e fazer qualquer coisa"],n:["possessivo","acusador, rabugento","extravagante, autodestruidor","mal humorado","melancólico","vícios","sexualidade alta"],pr:"qualquer profissão não repetitiva",z:"Peixes"},
+11:{t:"Artista",kw:"arte, intuição e transformação (tudo do 2 mais a vibração 11)",p:["inspirado","alta sensibilidade","idealista, espiritual","habilidades artísticas","alto poder de influência energética","transformador de pessoas e meios"],n:["apreensivo, pessimista","nervoso","vícios","paranoia, mania de perseguição","negligência ao material","tendência à depressão"],pr:"artista, religioso, mediador (nunca financeiro)",z:"Escorpião, Peixes, Aquário e Câncer"},
+22:{t:"Mestre",kw:"mestria e magia (tudo do 4 mais a vibração 22)",p:["sabedoria nata","ideias geniais","facilidade de ensinar","forte, vigoroso","visionário, sonhador realizador","alto poder de influenciar o meio"],n:["ganancioso","corrupto","imprudente","usa o carisma para o mal","alto grau de destruição do meio"],pr:"grandes políticos, ricos, famosos",z:"Peixes, Sagitário, Leão e Escorpião"}},
+prat:{1:[4,7,8,22],2:[6,9,11],3:[1,5,9],4:[1,7,8,22],5:[1,3,7,9],6:[2,3,5,7,9,11],7:[9,11,22],8:[1,4,7,9,22],9:[7,11,22]},
+grupos:{fis:{Possuir:[1,4,8],Compartilhar:[2,6],Vivenciar:[3,5]},emo:[2,3,5,6,9],raz:[1,4,7,8],esp:[7,9,11,22]},
+pot:{"Honestidade":[1,4,7,8],"Conquistas materiais":[1,3,4,5,7,8,9],"União, colaboração, afetividade":[2,3,5,6,9],"Capacidade de trabalho":[1,4,8],"Espiritualidade":[7,9,11,22]},
+sexo:{"Intensa (1,3,5,7,9)":[1,3,5,7,9],"Média (2,6)":[2,6],"Fraca (4,8)":[4,8]},
+opos:{"1_2":"individualidade x compartilhamento","1_6":"individualismo x coletivo","1_9":"individualismo x espiritualidade","2_4":"compartilhar x reter","2_5":"compartilhar x ser livre","2_8":"compartilhar x dar ordens","3_4":"criar x estabilidade","4_5":"manter x vivenciar","4_6":"estabilidade x emoção","4_7":"rigidez x espiritualidade","4_9":"manter x doar","5_6":"liberdade x família","5_8":"liberdade x trabalho","5_9":"liberdade x espiritualidade","6_8":"afetividade x frieza","7_8":"espiritualidade x posses materiais","8_9":"possuir x doar"},
+fortes:["1_2","1_9","2_8","3_4","4_5","7_8","8_9"],naoConflito:["4_6","4_7"],
+conj:{"1_1":"coragem e liderança nata","2_2":"união e flexibilidade; precisa viver em grupo","3_3":"criação, talento e expansão; comunicador nato","4_4":"estabilidade; trabalhador nato (pão-duro)","5_5":"liberdade de vivências múltiplas; líder nato","6_6":"emoção e harmonia; sonho do clã, pode ser utópico","7_7":"autoconhecimento; muito exigente e metódico","8_8":"retidão: ou mais justo ou mais injusto; propenso a stress e ataque cardíaco","9_9":"alma; deve caminhar para a alta espiritualidade ou se tornará ranzinza","11_11":"vampirismo; ideal na arte transformadora, forte tendência à depressão, cuidado com drogas e suicídio; perigoso para sociedade ou casamento","22_22":"magia e mestria; pessoas muito especiais, podem construir ou destruir; cuidado em fazer sociedade"},
+cic:{"C1_1":"forte ligação com o pai e provável ausência da mãe ou afetiva","C1_2":"identificação com a mãe, ausência do pai","C1_3":"criança criativa, falante e agitada; risco de ossos e ligamentos","C1_4":"começa a trabalhar cedo por prazer","C1_5":"liberdade e mudanças sem trauma","C1_6":"família harmônica e forte apego aos pais e ao lar","C1_7":"paranormalidade: pesadelos, visões, amigos invisíveis","C1_8":"vaidoso; evitar envolvimentos com a justiça","C2_2":"união, associação, casamento não tradicional","C2_3":"fertilidade (filhos geralmente 1 ano antes ou depois do ciclo) e criatividade","C2_6":"casamento tradicional, que tende a durar o ciclo","C2_8":"sucesso, trabalho e forte tendência ao sucesso financeiro","C3_4":"mantém-se ativo, trabalha por prazer até o fim","C3_9":"caminho da espiritualidade; prepara-se para o desencarne","D1_3":"problemas ginecológicos e de comunicação; criança hiperativa e ansiosa","D1_7":"paranormalidade, pesadelos, introspecção e isolamento","DM_0":"vida agitada, cheia de acontecimentos, altos e baixos; pior se associado a 11, 2, 6 ou 7","DM_1":"impulsividade, imprudência e ausência de coragem para grandes decisões","DM_2":"dificuldade de parceria, dependência, dificuldade de ceder","DM_3":"problemas de comunicação e com órgãos reprodutores; gravidez difícil ou indesejada","DM_4":"trabalha intensamente porque a vida impõe, sem prazer; ansiedade e instabilidade","DM_5":"traumas, mudanças e quebras de vínculos fortes; deve permitir as mudanças sem lutar","DM_6":"desequilíbrio na família, casamentos desfeitos, ciúme, excesso de peso e utopia","DM_7":"vícios, exigência excessiva (chato), isolamento, ceticismo, sarcasmo; possível paranormalidade","DM_8":"autoritarismo, problemas com a justiça, frieza; exige conduta irrepreensível"},
+ap:{1:"renascimento: abrir novo caminho e preparar novo ciclo de 9 anos",2:"parceria: conceder, aguardar e treinar a paciência",3:"crescimento: aproveitar as chances",4:"estabilidade: estruturar-se, trabalhar muito e gastar pouco",5:"mudança: transformar-se e investir nas novas possibilidades",6:"afetividade: lar e família",7:"sabedoria: encontrar a si próprio",8:"financeiro: buscar retorno material sem abusos e praticar a justiça",9:"limpeza: aceitar a purificação e não iniciar coisas de longo prazo"},
+ling:{1:"rapidez e objetividade, sem se prender a detalhes",2:"calma, pausadamente, revelando com cuidado",3:"criatividade, humor e alegria",4:"racionalidade, clareza e segurança",5:"criatividade, humor e expansividade",6:"calma, pausadamente, revelando com cuidado",7:"profundidade e espiritualidade",8:"racionalidade, clareza e determinação",9:"profundidade e visão holística",11:"profundidade e espiritualidade",22:"profundidade e visão holística"},
+ct:{MO:"CT = MO: toda a sua vida será mexida em relação ao que você é, sendo desafiado a usar suas ferramentas.",CD:"CT = CD: vai mexer com o seu destino, mostrando neste período, com mais clareza e luminosidade, o caminho a seguir.",EU:"CT = EU: oportunidade de ver com mais clareza o seu sonho, de forma mais racional, para sentir se o caminho que está tomando é o mais adequado para realizá-lo.",EX:"CT = EX: a relação da pessoa com o mundo será alterada neste período.",D:"CT = Desafio: o desafio será intensificado, para que neste período haja a oportunidade de vencê-lo.",R:"CT = Realização: a realização neste período será facilitada; é um momento muito bom.",C:"CT = Ciclo: deve viver mais intensamente o ciclo e procurar realizá-lo positivamente para a sua felicidade.",APCT:"AP = CT: serão acentuados os aspectos relacionados a este número neste período.",AVPF:"CT = Ausência de Vibração Positiva Fixa (o número do Desafio Maior não aparece em outra posição do mapa): será desafiado a entender e vencer esse desafio.",AVPC:"CT = Ausência de Vibração Positiva Cíclica (o número do desafio cíclico não aparece em outra posição do mapa): será desafiado a entender e vencer esse desafio.",CT0:"CT 0 (zero): leva à resolução de situações pendentes, que precisam ser resolvidas qualquer que seja o AP.",CT5:"CT 5: mudanças acentuadas e transformações.",CT9:"CT 9: trimestre de limpeza e purificação.",D9:"CT = Desafio num AP 9: a limpeza deste desafio será grande.",R9:"CT = Realização num AP 9: a limpeza, ou seja, a purificação desta realização poderá ser completa.",A9:"O AP 9 transforma a vibração do CT, dando a oportunidade de redescobri-la.",CT09:"CT 0 num AP 9: situações pendentes há anos serão resolvidas, com contratempos acentuados e dificuldades diversas, porém sem marcas ou perdas; o que parecer perda será purificação para o novo renascer.",CT59:"CT 5 num AP 9: indica purificação profunda (pessoal, profissional, amorosa etc.).",CT99:"CT 9 num AP 9: a purificação será muito forte.",REPT:"Trimestres com a mesma vibração no mesmo AP: as vibrações repetidas são mais importantes e devem ser mais trabalhadas do que o próprio AP; usar, se possível, a vibração do AP ajuda a resolvê-las."},
+ori:{3:"cuidado com a fertilidade (difícil engravidar, filhos fora do casamento ou fora de hora); potencial para doenças nos órgãos reprodutores",4:"precisa trabalhar até o fim da vida; se aposentar, deve arrumar outra atividade e dominar a impaciência",5:"preparar-se para as mudanças que virão, aceitando-as e fazendo-as bem-vindas, sem lutar contra elas",6:"cuidado com a paixão e os aspectos passionais; não deixar a lógica de lado, dominar o ciúme e os apegos excessivos e controlar o peso",7:"não ser chato a vida toda, não exigir tanto de si e dos outros",8:"ter conduta irrepreensível em todos os aspectos da vida, evitando problemas com a justiça"},
+dup:{2:"duplicidade: a pessoa controla sozinha",3:"triplicidade: precisará de auxílio psicológico",4:"quadruplicidade ou mais: precisará de auxílio médico (corpo), psicológico (mente) e esotérico (alma)"},
+soft:{1:{t:"Início",f:"iniciativa, coragem e independência",c:"escutar mais os outros e ter paciência para dividir ideias e conquistas"},2:{t:"União",f:"diplomacia, sensibilidade e capacidade de unir pessoas",c:"confiar mais em si e se posicionar com segurança"},3:{t:"Crescimento",f:"comunicação, criatividade e alegria",c:"organizar a energia e focar no que é realmente importante"},4:{t:"Estabilidade",f:"organização, honestidade e perseverança",c:"abrir espaço para o novo, a flexibilidade e o bom humor"},5:{t:"Transformação",f:"liberdade, versatilidade e entusiasmo pela vida",c:"construir vínculos e compromissos que não limitam a liberdade"},6:{t:"Harmonia",f:"afeto, acolhimento e senso de família",c:"equilibrar o cuidado com os outros e o respeito ao espaço de cada um"},7:{t:"Sabedoria",f:"análise, profundidade e busca de conhecimento",c:"ser mais flexível consigo e com os outros e cultivar a espiritualidade"},8:{t:"Realização",f:"liderança, senso de justiça e visão para os negócios",c:"equilibrar trabalho e afeto, usando a autoridade com compreensão"},9:{t:"Universalidade",f:"sensibilidade, generosidade e sabedoria",c:"manter os pés no chão e cuidar da própria espiritualidade"},11:{t:"Inspiração",f:"intuição, sensibilidade e talento artístico",c:"cuidar das emoções e praticar a arte e a espiritualidade"},22:{t:"Mestria",f:"visão ampla, capacidade de construir e de ensinar",c:"usar o grande potencial com humildade e em benefício de todos"}},
+conect:["Vamos começar","Em seguida,","Agora,","Passando adiante,","Por fim,"],
+rules:[
+{id:"T12",when:"CD==MO",text:"Pureza adquirida (CD = MO = {CD}): precisa lutar para exercê-la em benefício dos outros; pode ser perdida se mal trabalhada."},
+{id:"T12",when:"CD==MO&&MO==DM",text:"PPI: a pureza foi iniciada em outra vida (CD = MO = DM)."},
+{id:"T12",when:"(CD==DM||MO==DM)&&!(CD==MO&&MO==DM)",text:"PPC: pureza e conquistas iniciadas nesta jornada (CD ou MO igual a DM)."},
+{id:"T13",when:"EU==CD",text:"EU = CD: o destino a cumprir será a realização do sonho; deve praticar o CD."},
+{id:"T13",when:"EU==DM",text:"EU = DM: vencer o desafio é o único caminho para realizar o sonho; a felicidade depende disso."},
+{id:"T13",when:"EU==MO",text:"EU = MO: o sonho é ser ela mesma, levando harmonia ao meio sem abrir mão da própria vontade."},
+{id:"T13",when:"[R1,R2,R3,R4].includes(EU)",text:"EU = Realização: o sonho se realiza espontaneamente, sem esforço."},
+{id:"T13",when:"[C1,C2,C3].includes(EU)",text:"EU = Ciclo: é preciso viver o lado positivo do número para o sonho se realizar."},
+{id:"T13",when:"EU==D1||EU==D2",text:"EU = D1 ou D2: deve vencer o desafio neste período para o sonho se realizar."},
+{id:"T13",when:"![MO,EX,CD,C1,C2,C3,D1,D2,DM,R1,R2,R3,R4].includes(EU)",text:"EU não aparece em nenhuma outra posição: alcançará o sonho praticando a vibração do EU."},
+{id:"T14",when:"[D1,D2,DM].some(d=>d>0&&[R1,R2,R3,R4].includes(d))",text:"Conquistas espontâneas: desafio igual a uma realização é superado automaticamente no período dela, desde que haja esforço."},
+{id:"T19",when:"nd(2)&&nd(6)",text:"Presença de 2 e 6: casamento longo com afetividade."},
+{id:"T19",when:"!c(2)&&!c(6)",text:"Ausência de 2 e 6: sem prioridade de casamento."},
+{id:"T19",when:"nd(2)&&!c(6)",text:"2 sem 6: união por companheirismo, sem a prática da afetividade."},
+{id:"T19",when:"nd(6)&&!c(2)",text:"6 sem 2: prática de afetividade sem necessidade de união."},
+{id:"T19",when:"(c(2)&&!nd(2))||(c(6)&&!nd(6))",text:"2 ou 6 só em desafio: casamento e afetividade dependem de vencer o desafio."},
+{id:"T20",when:"nd(3)&&!c(2)&&!c(6)",text:"3 sem 2 e 6: possibilidade de ser mãe ou pai solteiro."},
+{id:"T20",when:"nd(3)&&nd(2)&&nd(6)",text:"3, 2 e 6: casamento duradouro e com filhos."},
+{id:"T20",when:"nd(3)&&((nd(2)>0)!=(nd(6)>0))",text:"3 com apenas um entre 2 e 6: casamento com filhos e possibilidade de separação."},
+{id:"T20",when:"c(3)>0&&nd(3)==0",text:"3 só em desafio: fertilidade depende do aprendizado; possível gravidez problemática ou abortos; recomenda-se exame clínico."},
+{id:"T20",when:"!c(3)",text:"Ausência de 3: a facilidade de fertilidade não está presente (o 3 não tem praticante)."},
+{id:"T21",when:"c(7)>0",text:"Vibração 7: possibilidade de dupla polaridade sexual (apenas indica possibilidade)."},
+{id:"T21",when:"[CD,EU,MO,DM].includes(7)",text:"7 em CD, EU, MO ou DM: aspectos sexuais intensificados."},
+{id:"T21",when:"c(7)&&(c(3)||c(5)||c(6))",text:"7 com 3, 5 ou 6: possível excesso de prática sexual diversificada."},
+{id:"T21",when:"c(7)&&c(9)",text:"7 com 9: sexualidade da alma, entrega total sem medir consequências."},
+{id:"T21",when:"c(7)&&c(11)",text:"7 com 11: sexualidade com possibilidade de vampirismo."},
+{id:"T21",when:"c(7)&&c(22)",text:"7 com 22: sexualidade controladora ou sublimada."},
+{id:"T15",when:"MO==11&&CD==11",text:"Vampirismo fortíssimo (MO 11 e CD 11)."},
+{id:"T15",when:"(MO==11||CD==11||EX==11)&&!(MO==11&&CD==11)&&(c(7)||c(9)||c(22))",text:"Vampirismo acentuado: 11 com 7, 9 ou 22; união afetiva ou comercial é de alto risco se o lado negativo for praticado."},
+{id:"DM",when:"[D1,D2,DM].includes(0)&&[CD,MO].some(x=>x==7||x==11)",text:"Zero em desafio com CD ou MO 7 ou 11: tristezas, melancolias e depressões profundas, com risco de tentativa de suicídio e grande instabilidade emocional. Revelar com muito cuidado, apenas como possibilidade."},
+{id:"DM",when:"DM==0&&(CD==4||MO==4)",text:"CD ou MO 4 com DM 0: tendência a enriquecer, mas pode tornar-se sovina."},
+{id:"DM",when:"[D1,D2,DM].includes(0)&&(CD==3||MO==3)",text:"Zero em desafio com CD ou MO 3: criativo, mas não se fixa em nada; instável."},
+{id:"DM",when:"[D1,D2,DM].includes(0)&&(CD==6||MO==6)",text:"Zero em desafio com CD ou MO 6: passional, risco de crime passional."},
+{id:"T6",when:"P([1,4,7,8])>{sim}",text:"Similaridade 1-4-7-8 acima de {sim}%: alto grau de exigência, risco de solidão e de explosões e agressões; com MO ou CD 6, possível crime passional."},
+{id:"T6",when:"P([3,5,9])>{sim}",text:"Similaridade 3-5-9 acima de {sim}%: excesso de desprendimento, incertezas, curiosidade, possível vulgaridade e múltipla vivência (acentuada com 6)."},
+{id:"T6",when:"P([2,4,6])>{sim}",text:"Similaridade 2-4-6 acima de {sim}%: incertezas e dependências que podem levar à depressão; com 11 ou 7, ideias de suicídio. Revelar com cuidado, apenas como possibilidade."},
+{id:"T11",when:"c(3)&&c(5)",text:"3 e 5 facilitam vícios: gostam de festas, alegria, curiosidade e desprendimento."},
+{id:"T11",when:"c(2)&&c(6)",text:"2 e 6 facilitam vícios: dependência, acomodação e dificuldade de dizer não."}
+]};
+let D=ld(),M=null;
+function ld(){try{const s=localStorage.getItem('mnn3');if(s){const d=JSON.parse(s);for(const k in DEF)if(!(k in d))d[k]=DEF[k];return d}}catch(e){}return JSON.parse(JSON.stringify(DEF))}
+const $=s=>document.querySelector(s),L=a=>a.join(', '),sd=n=>String(n).split('').reduce((a,b)=>a+ +b,0);
+const red=(n,k=1)=>{while(n>9&&!(k&&(n==11||n==22)))n=sd(n);return n},lo=n=>n==11?2:n==22?4:n;
+const esc=s=>s.replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));
+const nn=n=>D.num[n]||{t:'?',kw:'',p:[],n:[],pr:'',z:''},nm=n=>n===0?'0 (zero)':n+' – '+nn(n).t;
+const F=(s,o)=>Math.abs(Function('d','m','y','D1','D2','return '+s)(o.d,o.m,o.y,o.D1,o.D2));
+function calc(nome,iso,rf,apIn,msIn){
+ const [by,bm,bd]=iso.split('-').map(Number),[ry,rm,rd]=rf.split('-').map(Number),al=[];
+ const Ls=nome.normalize('NFD').replace(/[\u0300-\u036f]/g,'').toUpperCase().replace(/[^A-Z]/g,'').split('');
+ const vw='AEIOU'+(D.cfg.yVogal?'Y':'');let sv=0,sc=0;const partes=[];
+ nome.normalize('NFD').replace(/[\u0300-\u036f]/g,'').toUpperCase().split(/[^A-Z]+/).filter(Boolean).forEach(w=>{let a=0,b=0;w.split('').forEach(c=>{const x=(c.charCodeAt(0)-65)%9+1;vw.includes(c)?a+=x:b+=x});const ra=red(a),rb=red(b);sv+=ra;sc+=rb;partes.push(`${w}: vogais ${a}→${ra}, consoantes ${b}→${rb}`)});
+ if(Ls.includes('Y'))al.push('O nome contém Y, tratado como '+(D.cfg.yVogal?'vogal':'consoante')+' (flag cfg.yVogal).');
+ const MO=red(sv),EU=red(sc),EX=red(MO+EU),dr=red(bd),mr=red(bm),yr=red(sd(by)),CD=red(lo(dr)+lo(mr)+lo(yr));
+ const o={d:lo(dr),m:lo(mr),y:lo(yr)};o.D1=F(D.cfg.f.d1,o);o.D2=F(D.cfg.f.d2,o);
+ const D1=o.D1,D2=o.D2,DM=F(D.cfg.f.dm,o),R1=red(lo(dr)+lo(mr)),R2=red(lo(dr)+lo(yr)),R4=red(lo(mr)+lo(yr)),R3=red(lo(R1)+lo(R2)),e1=36-CD;
+ const v={MO,EU,EX,CD,C1:mr,C2:dr,C3:yr,D1,D2,DM,R1,R2,R3,R4};
+ const pos=Object.entries(v),cnt={};pos.forEach(([k,x])=>{cnt[x]=(cnt[x]||0)+1});
+ const [a1,a2]=D.cfg.idades,rr=[[0,e1],[e1+1,e1+9],[e1+10,e1+18],[e1+19,999]];
+ const at=a=>{const k=a<=a1?0:a<=a2?1:2,ri=rr.findIndex(r=>a>=r[0]&&a<=r[1]);
+  return{c:'C'+(k+1),d:['D1','D2','DM'][k],r:'R'+(ri+1)}};
+ const age=ry-by-((rm<bm||(rm==bm&&rd<bd))?1:0),apAno=apIn?+apIn:(rm<bm||(rm==bm&&rd<bd))?ry-1:ry;
+ const AP=red(lo(dr)+lo(mr)+lo(red(sd(apAno)))),n=at(age),T1=red(lo(AP)+lo(v[n.c])),T2=red(lo(AP)+lo(v[n.r])),T3=red(Math.abs(lo(AP)-DM)),T4=red(lo(T1)+lo(T2)+lo(T3));
+ const mes=msIn?+msIn:rm,MP=red(lo(red(mes))+lo(AP)),DP=red(lo(red(rd))+lo(MP)),mo=(ry-apAno)*12+(rm-bm)-(rd<bd?1:0),tri=Math.max(0,Math.min(3,Math.floor(mo/3)));
+ if(D1==7)al.push('Apostila traz "D7 com nº 7": interpretado como D1 com 7. Confirme o texto.');
+ [a1+1,a2+1].forEach(c=>[e1+1,e1+10,e1+19].forEach(r=>{if(Math.abs(c-r)<=1)al.push(`Técnica 16 (Momentos Decisivos): mudança de ciclo aos ${c} anos próxima da mudança de realização aos ${r}. Os critérios (a) e (b) são ambíguos na apostila; avalie manualmente com o AP 9 (veja a coluna AP da linha do tempo).`)}));
+ return{v,pos,cnt,at,rr,e1,age,apAno,AP,T:[T1,T2,T3,T4],tri,MP,DP,mes,al,by,bm,bd,nome,partes:partes.join(' · '),miss:new Set(),n}
+}
+function ctx(){const o={...M.v};o.c=n=>M.cnt[n]||0;o.nd=n=>M.pos.filter(([k,x])=>!/^D/.test(k)&&x==n).length;
+ o.ds=n=>M.pos.filter(([k,x])=>/^D/.test(k)&&x==n).length;o.P=a=>a.reduce((s,n)=>s+(M.cnt[n]||0),0)*D.cfg.pp;return o}
+function rules(){const o=ctx(),r=[],f=t=>t.replace(/\{(\w+)\}/g,(m,k)=>o[k]??D.cfg[k]??m);
+ D.rules.forEach(x=>{try{if(Function(...Object.keys(o),'return !!('+f(x.when)+')')(...Object.values(o)))r.push([x.id,f(x.text)])}catch(e){M.al.push('Erro na regra "'+x.when+'": '+e.message)}});return r}
+const pc=a=>a.reduce((s,n)=>s+(M.cnt[n]||0),0)*D.cfg.pp;
+function rng(k){const{rr,e1}=M;const i=+k[1]-1;
+ if(k[0]=='R')return rr[i][1]>900?`após ${rr[i][0]-1} anos`:`${rr[i][0]}–${rr[i][1]} anos`;
+ const [a1,a2]=D.cfg.idades;return['0–'+a1,(a1+1)+'–'+a2,(a2+1)+'+'][i]+' anos'}
+const bars=(t,a)=>`<div class="cd"><b>${t}</b>`+a.map(([l,p])=>`<div class="br"><span>${l}</span><div class="tk"><i style="width:${Math.min(100,p)}%"></i></div><span>${p}%</span></div>`).join('')+'</div>';
+function tri(s){const v=M.v,c=(x,y,n,l,dy)=>`<circle cx="${x}" cy="${y}" r="26" style="fill:var(--cd);stroke:var(--ac);stroke-width:2"/><text x="${x}" y="${y+8}" text-anchor="middle" style="fill:var(--fg);font:700 22px system-ui,sans-serif">${n}</text><text x="${x}" y="${y+dy}" text-anchor="middle" style="fill:var(--mu);font:12px system-ui,sans-serif">${l}</text>`;
+ return `<div class="cd"><b>Triângulo da Vida</b><svg viewBox="0 0 360 250" role="img" aria-label="Triângulo da vida" style="width:100%;max-width:430px;display:block;margin:auto"><defs><marker id="ar" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L8 4L0 8z" style="fill:var(--ac)"/></marker></defs><polygon points="180,50 50,190 310,190" style="fill:var(--hl);fill-opacity:.35;stroke:var(--ac);stroke-width:2"/><line x1="80" y1="190" x2="280" y2="190" marker-end="url(#ar)" style="stroke:var(--ac);stroke-width:3"/><line x1="291" y1="169" x2="199" y2="71" marker-end="url(#ar)" style="stroke:var(--ac);stroke-width:3"/><text x="180" y="176" text-anchor="middle" style="fill:var(--mu);font:12px system-ui,sans-serif">vencer os desafios</text><text x="258" y="104" style="fill:var(--mu);font:12px system-ui,sans-serif">rumo ao caminho</text>${c(180,50,v.CD,s?'Caminho de vida':'Caminho do Destino (CD)',-34)}${c(50,190,v.MO,s?'Bagagem da alma':'Alma (MO)',46)}${c(310,190,v.DM,s?'Grande aprendizado':'Desafio Maior (DM)',46)}</svg><p class="mu" style="text-align:center">${s?'Partindo da bagagem que a sua alma traz, você vai superando o seu grande aprendizado para alcançar o seu caminho de vida.':`A partir da bagagem da Alma (MO ${v.MO}), a pessoa deve vencer os desafios do DM ${v.DM} para alcançar o Caminho do Destino (CD ${v.CD}).`}</p></div>`}
+const MES=['jan','fev','mar','abr','mai','jun','jul','ago','set','out','nov','dez'];
+const trl=(ay,i)=>{const s=M.bm-1+3*i,e=s+2;return MES[s%12]+'/'+(ay+Math.floor(s/12))+' a '+MES[e%12]+'/'+(ay+Math.floor(e/12))};
+function anal(){if(!M)return;const v=M.v,ay=+$('#pay').value||M.apAno,mes=Math.min(12,Math.max(1,+$('#pam').value||M.mes)),age=ay-M.by;
+ if(age<0){$('#par').innerHTML='<div class="al">⚠ O ano escolhido é anterior ao nascimento.</div>';return}
+ const a=M.at(age),Cn=v[a.c],Rn=v[a.r],Dn=v[a.d],AP=red(lo(red(M.bd))+lo(red(M.bm))+lo(red(sd(ay)))),T=[red(lo(AP)+lo(Cn)),red(lo(AP)+lo(Rn)),red(Math.abs(lo(AP)-v.DM))];T.push(red(lo(T[0])+lo(T[1])+lo(T[2])));
+ const tri=Math.floor(((mes-M.bm+12)%12)/3),MP=red(lo(red(mes))+lo(AP)),my=mes>=M.bm?ay:ay+1,nd=M.pos.filter(([k])=>!/^D/.test(k)).map(x=>x[1]),sc=sinc(age),ct=D.ct||{},nb=n=>n===0?'0 (zero)':n+' ('+nn(n).t+')',at=n=>M.pos.filter(x=>x[1]==n).map(x=>x[0]);
+ const common=(t,o)=>{if(t>0&&t==v.DM&&!nd.includes(t))o.push(ct.AVPF);if(t>0&&a.d!='DM'&&t==Dn&&!nd.includes(t))o.push(ct.AVPC);
+  const q=sc.filter(x=>x[1]==t);if(t>0&&q.length)o.push(`O número ${t} já aparece ${q.length}× neste período do mapa (${L(q.map(x=>x[0]))}); somado a esta vibração, forma ${D.dup[Math.min(q.length+1,4)]||''}.`);
+  const ps=at(t);if(t>0)o.push(ps.length?`No mapa, ${t} aparece em: ${L(ps)}.`:`${t} não aparece no mapa (número ausente).`)};
+ const an=t=>{const o=[],P=k=>{if(ct[k])o.push(ct[k])};
+  if(t===0){P('CT0');if(AP==9)P('CT09')}if(t===5){P('CT5');if(AP==9)P('CT59')}if(t===9){P('CT9');if(AP==9)P('CT99')}
+  if(t==v.MO)P('MO');if(t==v.CD)P('CD');if(t==v.EU)P('EU');if(t==v.EX)P('EX');
+  if(t>0&&(t==Dn||t==v.DM)){P('D');if(AP==9)P('D9')}if(t==Rn){P('R');if(AP==9)P('R9')}if(t==Cn)P('C');if(t==AP)P('APCT');
+  if(AP==9)P('A9');common(t,o);return o};
+ const fm=['AP + ciclo vigente ('+a.c+' = '+Cn+')','AP + realização vigente ('+a.r+' = '+Rn+')','AP − Desafio Maior (DM = '+v.DM+')','soma dos três anteriores'],ul=x=>'<ul>'+x.filter(Boolean).map(s=>`<li>${esc(s)}</li>`).join('')+'</ul>',apo=[];common(AP,apo);if(AP==9&&ct.A9)apo.unshift(ct.A9);
+ const rp=T.map((t,i)=>[t,i+1]).filter(([t],_,r)=>r.filter(x=>x[0]==t).length>1);
+ let h=`<div class="cd"><b>Ano Pessoal ${ay}</b> · de ${M.bd}/${M.bm}/${ay} até a véspera do aniversário de ${ay+1} · idade ${age} anos<br>No período, o ciclo vigente é <b>${a.c} = ${Cn}</b>, o desafio vigente é <b>${a.d} = ${Dn}</b> e a realização vigente é <b>${a.r} = ${Rn}</b>. Fixos: MO ${v.MO}, CD ${v.CD}, DM ${v.DM}, EU ${v.EU}, EX ${v.EX}.</div>`;
+ h+=`<div class="cd"><h3 style="margin-top:0">AP ${nb(AP)}</h3><p>${esc(D.ap[lo(AP)]||'')}${AP==11?' (vindo do 11: trabalha a intuição e a espiritualidade)':''}${AP==22?' (vindo do 22: acrescenta sabedoria e espiritualidade)':''}.</p>${ul(apo)}</div>`;
+ h+=`<div class="cd"><table><tr><th>Trimestre</th><th>Período</th><th>Cálculo</th><th>CT</th></tr>${T.map((t,i)=>`<tr${i==tri?' class="now"':''}><td>${i+1}º</td><td>${trl(ay,i)}</td><td>${fm[i]}</td><td class="dp">${t}</td></tr>`).join('')}</table></div>`;
+ T.forEach((t,i)=>{h+=`<div class="cd"><h3 style="margin-top:0">${i+1}º trimestre (${trl(ay,i)}): CT ${nb(t)}</h3><p>${['O primeiro trimestre','O segundo trimestre','O terceiro trimestre','O último trimestre (soma dos anteriores)'][i]} traz a energia de ${nn(t).kw||'resolução de pendências'}.</p>${ul(an(t))}</div>`});
+ if(rp.length)h+=`<div class="cd"><b>Repetições entre os CTs:</b> ${esc(L(rp.map(r=>r[0]+' (CT '+r[1]+')')))}. ${esc(ct.REPT||'')}</div>`;
+ h+=`<div class="cd"><h3 style="margin-top:0">Mês pessoal</h3><p>${MES[mes-1]}/${my}: <b>MP ${nb(MP)}</b>, dentro do ${tri+1}º trimestre (CT ${T[tri]}). Energia do mês: ${esc(D.ap[lo(MP)]||nn(MP).kw)}.${MP==T[tri]?' O mês reforça a vibração do trimestre.':''}${MP==AP?' O mês reforça a vibração do ano.':''}${at(MP).length?' No mapa, '+MP+' aparece em: '+L(at(MP))+'.':''}</p><div class="mu">Trimestres contados a partir do mês do aniversário; todas as regras são acentuadas se a pessoa tiver duplicidades.</div></div>`;
+ $('#par').innerHTML=h}
+function sinc(a){const v=M.v,t=M.at(a),e=[['MO',v.MO],['CD',v.CD],['DM',v.DM],['EU',v.EU],['EX',v.EX],[t.c,v[t.c]]];if(a<=D.cfg.idades[1])e.push([t.d,v[t.d]]);e.push([t.r,v[t.r]]);return e.filter(x=>x[1]>0)}
+function duplTxt(){const by=M.by,per=[];let last=null,mx=1;
+ for(let a=0;a<=90;a++){const g={};sinc(a).forEach(([l,n])=>(g[n]=g[n]||[]).push(l));
+  const rp=Object.entries(g).filter(([n,l])=>l.length>1),r=JSON.stringify(rp);rp.forEach(([n,l])=>mx=Math.max(mx,l.length));
+  if(last&&last.r==r)last.b=a;else per.push(last={a,b:a,r,rp})}
+ M.maxDup=mx;const dt=k=>D.dup[Math.min(k,4)]||'';
+ return '<h3>Duplicidades, triplicidades e mais</h3><p>Para avaliar a concentração vibracional, tratamos como fixos em toda a vida MO, CD, DM, EU e EX e somamos o ciclo, o desafio e a realização de cada período (C1/D1, C2/D2 e C3 nunca ocorrem juntos; as realizações podem coincidir com eles). Duplicidade a pessoa controla sozinha; triplicidade pede auxílio psicológico; quadruplicidade ou mais pede auxílio médico, psicológico e esotérico.</p><ul>'+per.map(q=>{const lb=q.b>=90?`${q.a} anos em diante (a partir de ${by+q.a})`:q.a==q.b?`aos ${q.a} anos (${by+q.a})`:`${q.a} a ${q.b} anos (${by+q.a}–${by+q.b})`;
+  return `<li><b>${lb}:</b> `+(q.rp.length?q.rp.map(([n,l])=>`${nm(+n)} repetido ${l.length}× (${l.join(', ')}), concentrando ${nn(n).kw} — ${dt(l.length)}`).join('; '):'sem repetições')+'.</li>'}).join('')+'</ul>'}
+const sf=n=>(D.soft&&D.soft[n])||{t:nn(n).t,f:nn(n).kw,c:'rever com calma os aspectos de '+nn(n).kw};
+function periods(){const per=[];let last=null;for(let a=0;a<=90;a++){const g={};sinc(a).forEach(([l,n])=>(g[n]=g[n]||[]).push(l));const rp=Object.entries(g).filter(([n,l])=>l.length>1),r=JSON.stringify(rp);if(last&&last.r==r)last.b=a;else per.push(last={a,b:a,r,rp})}return per}
+function cons(){const v=M.v,S=sf,by=M.by,au=[1,2,3,4,5,6,7,8,9].filter(n=>!M.cnt[n]),X=M.pos.map(([k,x])=>lo(x)),pl=g=>X.filter(x=>g.includes(x)).length*D.cfg.pp;
+ const tt=n=>n===0?'resolução de pendências':n==9?'encerramento e renovação':S(n).t.toLowerCase();
+ const bx=(ti,k)=>`<div class="bx"><div class="mu">${ti}</div><div><span class="big">${v[k]}</span> <b>${S(v[k]).t}</b></div><div>Dons: ${S(v[k]).f}. Para crescer: ${S(v[k]).c}.</div></div>`;
+ const li=(lb,tx)=>`<li><b>${lb}:</b> ${tx}</li>`,fs=['formação','produção','colheita'];
+ const des=k=>v[k]===0?'períodos de muitos acontecimentos e mudanças, que ensinam flexibilidade':'aprender a '+S(v[k]).c;
+ const ph=periods().filter(q=>q.rp.length).map(q=>{const lb=q.b>=90?`a partir dos ${q.a} anos`:q.a==q.b?`aos ${q.a} anos`:`dos ${q.a} aos ${q.b} anos`,mx=Math.max(...q.rp.map(r=>r[1].length));
+  return li(lb,'a energia de '+L([...new Set(q.rp.map(([n])=>tt(+n)))])+' aparece reforçada'+(mx>=3?'; é um período intenso, em que vale contar com o apoio de pessoas de confiança e cuidar do corpo, da mente e do espírito':'; você costuma lidar bem com isso'))});
+ const aus=au.length?'Algumas energias não são o foco desta vida: '+au.map(n=>{const p=(D.prat[n]||[]).filter(x=>M.cnt[x]);return S(n).t.toLowerCase()+(p.length?' (você a acessa indiretamente por meio de '+L(p.map(x=>tt(x)))+')':'')}).join('; ')+'.':'Todas as energias estão presentes no seu mapa.';
+ const ap=M.AP,T=M.T;
+ $('#rc').innerHTML=`<p class="nop"><button onclick="try{window.print()}catch(e){}">Imprimir / salvar em PDF</button></p><div class="cl"><h2>Seu Mapa Numerológico</h2><div class="mu">${esc(M.nome)} · nascimento ${M.bd}/${M.bm}/${M.by}. Seu mapa é uma proposta de evolução: não existe mapa melhor ou pior, e suas escolhas fazem toda a diferença.</div>
+ <div class="cl2" style="margin:8px 0">${tri(1)}<div class="cl2" style="grid-template-columns:1fr 1fr">${bx('Sua alma (o que você traz)','MO')}${bx('Seu sonho (quem gostaria de ser)','EU')}${bx('Como as pessoas veem você','EX')}${bx('Seu caminho de vida','CD')}</div></div>
+ <div class="cl2"><div class="bx"><b>Fases da vida</b><ul>${['C1','C2','C3'].map((k,i)=>li('Fase de '+fs[i]+' ('+rng(k)+')','energia de '+tt(v[k])+', com '+S(v[k]).f)).join('')}</ul></div>
+ <div class="bx"><b>Aprendizados</b><ul>${['D1','D2','DM'].map(k=>li(k=='DM'?'Ao longo de toda a vida':rng(k),des(k))).join('')}</ul></div>
+ <div class="bx"><b>Oportunidades de realização</b><ul>${['R1','R2','R3','R4'].map(k=>li(rng(k),'desenvolver '+S(v[k]).f)).join('')}</ul></div></div>
+ <div class="bx" style="margin:8px 0"><b>Energias do mapa:</b> ${aus}</div>
+ <div class="cl2">${bars('Como você vive',[...Object.entries(D.grupos.fis).map(([k,g])=>[k,pl(g)]),['Espiritual',pc(D.grupos.esp)]])}${bars('Como você sente',[['Emoção',pl(D.grupos.emo)],['Razão',pl(D.grupos.raz)]])}${bars('Seus potenciais',Object.entries(D.pot).map(([k,g])=>[k,pc(g)]))}${bars('Intensidade afetiva',Object.entries(D.sexo).map(([k,g],i)=>[['Mais intensa','Intermediária','Mais serena'][i],pc(g)]))}</div>
+ ${ph.length?`<div class="bx" style="margin:8px 0"><b>Períodos de energia reforçada</b><ul>${ph.join('')}</ul></div>`:''}
+ <div class="bx"><b>Seu momento atual (${M.apAno}):</b> ${D.ap[lo(ap)]||''}. Ao longo deste ciclo de 12 meses, os trimestres trazem as energias de ${T.map((t,i)=>(i==M.tri?'<b>'+tt(t)+' (agora)</b>':tt(t))).join(', ')}. Neste mês, a energia é de ${tt(M.MP)}.</div></div>`}
+function resumo(){const v=M.v,lb={MO:'Alma (MO)',EU:'Sonho (EU)',EX:'Expressão (EX)',CD:'Destino (CD)'};
+ let h='<div class="cd"><b>'+esc(M.nome)+'</b> · nascimento '+M.bd+'/'+M.bm+'/'+M.by+' · idade na referência: '+M.age+' anos<div class="mu">Nome por partes (soma das reduções: vogais → MO, consoantes → EU): '+esc(M.partes)+'</div><div class="g" style="margin-top:8px">';
+ ['MO','EU','EX','CD'].forEach(k=>h+=`<div><div class="mu">${lb[k]}</div><div class="big">${v[k]}</div><div class="mu">${nn(v[k]).t}</div></div>`);h+='</div></div>';
+ const row=(k,l)=>`<tr><td>${l}</td><td class="dp">${v[k]}</td><td>${rng(k)}</td></tr>`;
+ h+='<div class="g"><div class="cd"><b>Ciclos</b><table>'+['C1','C2','C3'].map(k=>row(k,k)).join('')+'</table></div><div class="cd"><b>Desafios</b><table>'+row('D1','D1')+row('D2','D2')+`<tr><td>DM</td><td class="dp">${v.DM}</td><td>vida toda</td></tr></table></div><div class="cd"><b>Realizações</b><table>`+['R1','R2','R3','R4'].map(k=>row(k,k)).join('')+`</table><div class="mu">R1 = 36 − CD (36 − ${v.CD} = ${M.e1}: R1 termina aos ${M.e1} anos)</div></div></div>`;
+ const au=[1,2,3,4,5,6,7,8,9].filter(n=>!M.cnt[n]);
+ h+='<div class="cd"><b>Ausências:</b> '+(au.length?au.map(n=>{const p=(D.prat[n]||[]).filter(x=>M.cnt[x]);return n+(p.length?' (praticantes presentes: '+L(p)+')':' (sem praticantes)')}).join('; '):'nenhuma')+'</div>'+bars('Contagem nas 14 posições',Object.entries(M.cnt).sort((a,b)=>a[0]-b[0]).map(([n,c])=>[n==0?'Zero':nm(+n),c*D.cfg.pp]));
+ const pf=a=>pc(a),X=M.pos.map(([k,x])=>lo(x));
+ const pl=g=>X.filter(x=>g.includes(x)).length*D.cfg.pp;
+ h+=bars('Planos vibracionais',[...Object.entries(D.grupos.fis).map(([k,g])=>[k,pl(g)]),['Espiritual (7, 9, 11, 22)',pc(D.grupos.esp)]])+bars('Como sentem',[['Emoção',pl(D.grupos.emo)],['Razão',pl(D.grupos.raz)]]);
+ const cs=c=>c>=D.cfg.conq[2]?'só não ficam ricos se não focarem nas virtudes':c>=D.cfg.conq[1]?'grandes possibilidades':c>=D.cfg.conq[0]?'condição mediana':'abaixo da mediana';
+ h+=bars('Potenciais humanos',Object.entries(D.pot).map(([k,g])=>{const p=pc(g);return [k+(k.startsWith('Conq')?' – '+cs(p):''),p]}))+bars('Sexualidade',Object.entries(D.sexo).map(([k,g])=>[k,pc(g)]));
+ h+=`<div class="cd"><b>Ano e mês correntes</b> (referência ${$('#rf').value}): Ano Pessoal <span class="big">${M.AP}</span> (${M.apAno}) · Mês Pessoal <span class="big">${M.MP}</span> (${MES[M.mes-1]}) · Dia Pessoal ${M.DP}<table><tr><th>Trimestre</th><th>Período</th><th>CT</th></tr>${M.T.map((t,i)=>`<tr${i==M.tri?' class="now"':''}><td>${i+1}º CT</td><td>${trl(M.apAno,i)}</td><td class="dp">${t}</td></tr>`).join('')}</table><div class="mu">Análise completa na aba “Ano pessoal”.</div></div>`;$('#rs').innerHTML=h}
+function tl(){const v=M.v,eu=[v.EU,v.EX];let h='<div class="mu">Ano a ano: números fixos (MO, CD, DM, EU e EX) mais o ciclo, o desafio e a realização vigentes. Repetições: 2× duplicidade (controla sozinho), 3× triplicidade (auxílio psicológico), 4×+ (médico, psicológico e esotérico).</div><div class="sc"><table><tr><th>Ano</th><th>Idade</th><th>Ciclo</th><th>Desafio</th><th>Realiz.</th><th>AP</th><th>Repetições</th></tr>';
+ for(let a=0;a<=90;a++){const t=M.at(a),y=M.by+a,s=[v.MO,v.CD,v.DM,v.EU,v.EX,v[t.c],a<=D.cfg.idades[1]?v[t.d]:null,v[t.r]].filter(x=>x!==null&&x>0),c={};s.forEach(x=>c[x]=(c[x]||0)+1);
+  const rp=Object.entries(c).filter(([n,k])=>k>1).map(([n,k])=>`<b>${n}×${k}</b>${eu.includes(+n)?' (inclui '+[v.EU==n?'EU':'',v.EX==n?'EX':''].filter(Boolean).join('+')+')':''}`).join(' · ');
+  h+=`<tr${y==M.apAno?' class="now"':''}><td>${y}</td><td>${a}</td><td>${t.c}=${v[t.c]}</td><td>${t.d}=${v[t.d]}</td><td>${t.r}=${v[t.r]}</td><td>${red(lo(red(M.bd))+lo(red(M.bm))+lo(red(sd(y))))}</td><td>${rp}</td></tr>`}
+ $('#tl').innerHTML=h+'</table></div>'}
+function relat(){const v=M.v,o=[],T=(k,n)=>{const t=D.cic[k+'_'+n];if(!t)M.miss.add(k+'_'+n);return t};
+ const pp=(n,k)=>L(nn(n).p.slice(0,k||4)),ng=(n,k)=>L(nn(n).n.slice(0,k||4)),C=D.conect;
+ const mk=n=>`${nm(n)}, que traz ${nn(n).kw}. No seu melhor aparece como ${pp(n)}; no lado a cuidar, como ${ng(n)}`;
+ o.push(tri()+`<p>${C[0]} pelo triângulo da vida (CD, MO e DM), a primeira leitura do mapa. O Caminho do Destino é ${mk(v.CD)}. Ele se apoia na Alma, bagagem de vidas passadas à disposição, que é ${mk(v.MO)}. O Desafio Maior é ${v.DM===0?'zero':v.DM}: ${v.DM===0?T('DM',0):(T('DM',v.DM)||'aspectos negativos de '+nm(v.DM)+': '+ng(v.DM))}.</p>`);
+ o.push(`<h3>Sonho e expressão</h3><p>${C[1]} o Sonho (EU), quem a pessoa gostaria de ser, é ${mk(v.EU)}. A Expressão, como é vista por quem ainda não a conhece bem, é ${mk(v.EX)}.</p>`);
+ const a=Math.min(v.CD,v.MO),b=Math.max(v.CD,v.MO),key=a+'_'+b,ka=lo(a)+'_'+lo(b),op=D.opos[key]||D.opos[ka];
+ if(v.CD==v.MO)o.push(`<p>CD e MO são iguais: é a <b>pureza</b> de ${D.conj[key]||nn(v.CD).kw}.</p>`);
+ else{if(D.conj[key])o.push(`<p>Na conjunção CD ${v.CD} × MO ${v.MO}: ${D.conj[key]}.</p>`);else M.al.push(`Técnica 10: texto de CD ${v.CD} × MO ${v.MO} não cadastrado; usando palavras-chave (${nn(v.CD).kw} com ${nn(v.MO).kw}).`),o.push(`<p>Na conjunção CD ${v.CD} × MO ${v.MO}, o destino pede ${nn(v.CD).kw}, enquanto a alma oferece ${nn(v.MO).kw}.</p>`)
+  if(op)o.push(`<p>Há uma oposição vibracional (${op})${D.fortes.includes(D.opos[key]?key:ka)?', considerada forte':''}${D.naoConflito.includes(key)?', que a apostila não considera conflito':''}.</p>`)}
+ const cl=(k,n)=>`<b>${k}</b> (${rng(k)}) é ${nm(v[k])}: ${T(k,v[k])||'no seu melhor, '+pp(v[k],3)+'; a cuidar, '+ng(v[k],3)}`;
+ o.push(`<h3>Ciclos</h3><p>${C[2]} os ciclos, vibrações à disposição do livre arbítrio. ${['C1','C2','C3'].map(k=>cl(k)).join('. ')}.</p>`);
+ o.push(`<h3>Desafios</h3><p>${C[3]} os desafios, que mostram o lado negativo a vencer sem resistir. ${['D1','D2','DM'].map(k=>`<b>${k}</b> (${k=='DM'?'vida toda':rng(k)}) é ${v[k]}: ${v[k]===0?D.cic.DM_0:(T(k,v[k])||ng(v[k],4))}`).join('. ')}.${D.ori&&D.ori[v.DM]?' Orientação para o DM: '+D.ori[v.DM]+'.':''}</p>`);
+ o.push(`<h3>Realizações</h3><p>${C[4]} as realizações, oportunidades nos aspectos positivos de cada número. ${['R1','R2','R3','R4'].map(k=>`<b>${k}</b> (${rng(k)}) é ${nm(v[k])}: ${pp(v[k],5)}`).join('. ')}.</p>`);
+ const au=[1,2,3,4,5,6,7,8,9].filter(n=>!M.cnt[n]);
+ o.push(duplTxt());o.push(`<h3>Ausências</h3><p>${au.length?'Ausentes no mapa: '+au.map(n=>n+' ('+nn(n).t+', números que a pessoa não veio trabalhar nesta vida'+((D.prat[n]||[]).filter(x=>M.cnt[x]).length?'; praticantes presentes: '+L((D.prat[n]).filter(x=>M.cnt[x])):'; sem praticantes')+')').join('; ')+'.':'Não há ausências: todos os números de 1 a 9 aparecem.'}</p>`);
+ const rl=rules(),gr={};rl.forEach(([i,t])=>(gr[i]=gr[i]||[]).push(t));
+ const nmT={T12:'Pureza',T13:'Realização de sonhos',T14:'Conquistas espontâneas',T19:'Afetividade e casamento',T20:'Fertilidade',T21:'Sexualidade',T15:'Vampirismo',DM:'Desafios e zero',T6:'Similaridade',T11:'Vícios'};
+ o.push('<h3>Técnicas aplicáveis</h3>'+Object.entries(gr).map(([i,t])=>`<p><b>${nmT[i]||i}:</b> ${t.join(' ')}</p>`).join(''));
+ const now=M.n;o.push(`<h3>Momento atual</h3><p>Em ${M.apAno} a pessoa vive o AP ${M.AP}: ${D.ap[lo(M.AP)]||'—'}${M.AP==11?' (vindo do 11: trabalha intuição e espiritualidade)':''}${M.AP==22?' (vindo do 22: acrescenta sabedoria e espiritualidade)':''}. Os trimestres são ${M.T.join(', ')}, estando agora no ${M.tri+1}º. Ciclo atual ${now.c}=${v[now.c]}, desafio ${now.d}=${v[now.d]}, realização ${now.r}=${v[now.r]}. Mês pessoal ${M.MP} e dia pessoal ${M.DP}.${[M.AP,...M.T].includes(0)?' O zero indica pendências a resolver.':''}${[M.AP,...M.T].filter(x=>x==9).length?' O 9 pede limpeza e purificação no período.':''}</p>`);
+ o.push(`<h3>Lembretes para a consulta</h3><ul><li>Linguagem (Técnica 7): falar com ${D.ling[v.CD]||'—'} (base no CD ${v.CD}${v.CD==v.MO?', pureza':''}).</li><li>Maior concentração de repetições ao longo da vida: ${M.maxDup}× (${(D.dup[Math.min(M.maxDup,4)]||'sem repetições')}). Detalhes na seção de duplicidades e na aba Linha do tempo; confrontar com os demais números.</li><li>Orientar sobre a prática da espiritualidade${pc(D.grupos.esp)?` (potencial ${pc(D.grupos.esp)}%)`:' (mesmo sem números espirituais, falar de sua necessidade)'}.</li><li>Termos sensíveis devem ser ditos como possibilidade, com linguagem delicada e sem julgar.</li></ul>`);
+ $('#rl').innerHTML='<p><button id="cr">Copiar relatório</button></p><div class="cd">'+o.join('')+'</div>';
+ $('#cr').onclick=()=>{try{navigator.clipboard.writeText($('#rl').innerText)}catch(e){}}}
+function run(){const nm0=$('#nm').value.trim(),dt=$('#dt').value;if(!nm0||!dt)return;
+ D.cfg.yVogal=$('#yy').value=='1';M=calc(nm0,dt,$('#rf').value,'','');
+ relat();resumo();tl();cons();if(!$('#pay').value)$('#pay').value=M.apAno;if(!$('#pam').value)$('#pam').value=M.mes;anal();
+ if(M.miss.size)M.al.push('Textos específicos ainda não cadastrados nos dados (cic): '+L([...M.miss].slice(0,40))+(M.miss.size>40?'…':'')+'. Foram usadas as características gerais do número.');
+ $('#al').innerHTML=M.al.map(a=>'<div class="al">⚠ '+esc(a)+'</div>').join('')}
+$('#go').onclick=()=>{$('#pay').value='';$('#pam').value='';run()};$('#pab').onclick=()=>anal();['#pay','#pam'].forEach(s=>$(s).addEventListener('input',()=>anal()));
+document.querySelectorAll('.tabs button').forEach(b=>b.onclick=()=>{document.querySelectorAll('.tabs button,.pn').forEach(x=>x.classList.remove('on'));b.classList.add('on');$('#'+b.dataset.p).classList.add('on')});
+const NUMS=[1,2,3,4,5,6,7,8,9,11,22],POS=['MO','EU','EX','CD','C1','C2','C3','D1','D2','DM','R1','R2','R3','R4'],ea=s=>esc(String(s??'')).replace(/"/g,'&quot;');
+const CTL={MO:'CT = MO',CD:'CT = CD',EU:'CT = EU',EX:'CT = EX',D:'CT = Desafio',R:'CT = Realização',C:'CT = Ciclo',APCT:'AP = CT',AVPF:'CT = AVP fixa',AVPC:'CT = AVP cíclica',CT0:'CT 0',CT5:'CT 5',CT9:'CT 9',D9:'CT = Desafio no AP 9',R9:'CT = Realização no AP 9',A9:'AP 9 transforma o CT',CT09:'CT 0 no AP 9',CT59:'CT 5 no AP 9',CT99:'CT 9 no AP 9',REPT:'CTs repetidos no AP'};
+const AB=(t,f)=>({t,A:NUMS,B:NUMS,f,k:(a,b)=>Math.min(a,b)+'_'+Math.max(a,b)}),S1=(t,f)=>({t,B:NUMS,f,k:b=>b});
+const SEC={num:{t:'Significado dos números'},cic:{t:'Ciclos e desafios',A:['C1','C2','C3','D1','D2','DM'],B:[0,...NUMS],f:(a,b)=>`${a} com nº ${b}`,k:(a,b)=>a+'_'+b},conj:AB('Conjunção CD × MO',(a,b)=>`${a} × ${b}`),opos:AB('Oposições',(a,b)=>`${a} × ${b}`),ori:S1('Orientações do DM',b=>`DM com nº ${b}`),ap:S1('Ano Pessoal',b=>`Ano Pessoal ${b}`),ling:S1('Linguagem (Técnica 7)',b=>`Falar com quem tem ${b}`),dup:{t:'Duplicidades',B:[2,3,4],f:b=>b==4?'4 ou mais repetições':b+' repetições',k:b=>b},ct:{t:'Trimestres (CT)',B:Object.keys(CTL),f:b=>CTL[b]||b,k:b=>b},rules:{t:'Técnicas e regras'},cfg:{t:'Configurações'}};
+let es='num',en=1;
+const DF={eq:{a:'CD',b:'MO'},is:{a:'EU',b:5},has:{m:'any',b:3},pct:{a:'1,4,7,8',b:21},js:{a:''}};
+const gp=p=>p.split('.').reduce((o,k)=>o[k],D),sp_=(p,v)=>{const a=p.split('.'),l=a.pop();a.reduce((o,k)=>o[k],D)[l]=v};
+function cw(r){const x=({eq:()=>`${r.a}==${r.b}`,is:()=>`${r.a}==${r.b}`,has:()=>({any:`c(${r.b})>0`,nd:`nd(${r.b})>0`,ds:`c(${r.b})>0&&nd(${r.b})==0`,no:`!c(${r.b})`})[r.m],pct:()=>`P([${r.a}])>${r.b}`,js:()=>r.a||'false'})[r.t]();return r.neg?`!(${x})`:`(${x})`}
+function regen(i){const r=D.rules[i],c=r.cond;r.when=c.rows.map(cw).join(c.op=='ou'?'||':'&&')||'false'}
+function tr(i){if(!M)return 'Calcule um mapa primeiro.';try{const o=ctx(),r=D.rules[i],f=t=>t.replace(/\{(\w+)\}/g,(m,k)=>o[k]??D.cfg[k]??m);return Function(...Object.keys(o),'return !!('+f(r.when)+')')(...Object.values(o))?'✔ vale para o mapa atual':'✘ não vale para o mapa atual'}catch(e){return 'Erro: '+e.message}}
+const so=(l,s)=>l.map(x=>`<option value="${x[0]}"${x[0]==s?' selected':''}>${x[1]}</option>`).join('');
+function rowH(i,j,w){const P=`rules.${i}.cond.rows.${j}.`,pl=POS.map(x=>[x,x]),nl=NUMS.map(x=>[x,x]),sl=(f,s,l,n)=>`<select data-p="${P}${f}"${n?' data-m="n"':''}>${so(l,s)}</select>`;let b='';
+ if(w.t=='has')b=sl('b',w.b,nl,1)+' '+sl('m',w.m,[['any','aparece em qualquer posição'],['nd','aparece fora dos desafios'],['ds','aparece só em desafio'],['no','não aparece']]);
+ else if(w.t=='is')b=sl('a',w.a,pl)+' é o número '+sl('b',w.b,nl,1);
+ else if(w.t=='eq')b=sl('a',w.a,pl)+' é igual a '+sl('b',w.b,pl);
+ else if(w.t=='pct')b=`percentual dos números <input data-p="${P}a" value="${ea(w.a)}" size="9"> maior que <input data-p="${P}b" data-m="n" value="${ea(w.b)}" size="3">%`;
+ else b=`<input data-p="${P}a" value="${ea(w.a)}" style="width:60%" placeholder="expressão">`;
+ return `<div style="margin:4px 0"><label style="display:inline"><input type="checkbox" data-p="${P}neg"${w.neg?' checked':''}> não</label> <select data-p="${P}t" data-ty="1">${so([['has','número'],['is','posição = número'],['eq','posição = posição'],['pct','percentual'],['js','avançado']],w.t)}</select> ${b} <button data-act="cdel" data-i="${i}" data-j="${j}">✕</button></div>`}
+function edRules(){return D.rules.map((r,i)=>{if(!r.cond)r.cond={op:'e',rows:[{t:'js',a:r.when}]};const c=r.cond;
+ return `<div class="bx" style="margin:8px 0"><div style="display:flex;gap:6px"><input data-p="rules.${i}.id" value="${ea(r.id)}" placeholder="Técnica (ex.: T19)" style="max-width:150px"><button data-act="rdel" data-i="${i}">Excluir regra</button></div><div class="mu">Se <select data-p="rules.${i}.cond.op" data-r="1"><option value="e"${c.op!='ou'?' selected':''}>todas</option><option value="ou"${c.op=='ou'?' selected':''}>qualquer uma</option></select> destas condições for verdadeira:</div>${c.rows.map((w,j)=>rowH(i,j,w)).join('')}<button data-act="cadd" data-i="${i}">+ condição</button><div class="mu">Então escrever no relatório:</div><textarea class="sm" rows="2" data-p="rules.${i}.text">${esc(r.text||'')}</textarea><div class="mu">${esc(r.when)} <button data-act="tst" data-i="${i}">Testar com o mapa atual</button> <span id="tr${i}"></span></div></div>`}).join('')+'<button data-act="radd">+ Nova regra</button>'}
+function edNum(){const n=en,d=D.num[n]||(D.num[n]={t:'',kw:'',p:[],n:[],pr:'',z:''}),s=(D.soft=D.soft||{})[n]||(D.soft[n]={t:'',f:'',c:''}),pr=D.prat[n]||[];
+ const ta=(p,v,l,m)=>`<label>${l}<textarea class="sm" rows="7" data-p="${p}" data-m="${m}">${esc(v.join('\n'))}</textarea></label>`,inp=(p,v,l,m)=>`<label>${l}<input data-p="${p}" value="${ea(Array.isArray(v)?v.join(', '):v)}"${m?` data-m="${m}"`:''}></label>`;
+ return `<div style="margin:8px 0"><label>Número <select id="sn">${NUMS.map(x=>`<option${x==n?' selected':''}>${x}</option>`).join('')}</select></label> ${inp(`num.${n}.t`,d.t,'Título (ex.: Início)')}${inp(`num.${n}.z`,d.z,'Zodíaco')}${inp(`num.${n}.kw`,d.kw,'Palavras-chave (usadas no texto corrido)')}</div><div class="g">${ta(`num.${n}.n`,d.n,'Lado negativo (um por linha)','l')}${ta(`num.${n}.p`,d.p,'Lado positivo (um por linha)','l')}</div>${inp(`num.${n}.pr`,d.pr,'Profissões')}${inp(`prat.${n}`,pr,'Praticantes (números separados por vírgula)','c')}<div class="mu" style="margin-top:8px">Relatório da pessoa (linguagem branda)</div>${inp(`soft.${n}.t`,s.t,'Tema')}${inp(`soft.${n}.f`,s.f,'Dons')}${inp(`soft.${n}.c`,s.c,'Para crescer')}`}
+function edCfg(){const c=D.cfg,f=(p,l,v)=>`<label>${l} <input data-p="cfg.${p}" data-m="n" value="${ea(v)}" size="4"></label> `,g=(p,l,v)=>`<label>${l} <input data-p="cfg.${p}" value="${ea(v)}" size="8"></label> `;
+ return `<div style="margin:8px 0">${f('pp','Percentual por posição (%)',c.pp)}${f('sim','Similaridade acima de (%)',c.sim)}${f('esp','Espiritualidade alta acima de (%)',c.esp)}<br>${f('idades.0','Ciclo 1 termina aos',c.idades[0])}${f('idades.1','Ciclo 2 termina aos',c.idades[1])}<br>${f('conq.0','Conquistas: mediana a partir de (%)',c.conq[0])}${f('conq.1','grandes possibilidades (%)',c.conq[1])}${f('conq.2','só não ficam ricos se… (%)',c.conq[2])}<br>${g('f.d1','Fórmula D1 (d=dia, m=mês, y=ano)',c.f.d1)}${g('f.d2','Fórmula D2',c.f.d2)}${g('f.dm','Fórmula DM (D1, D2)',c.f.dm)}</div>`}
+function edDict(k){const s=SEC[k],d=D[k]||(D[k]={}),ks=Object.keys(d).sort((a,b)=>a.localeCompare(b,undefined,{numeric:true})),sl=(id,l)=>`<select id="${id}">${l.map(x=>`<option>${x}</option>`).join('')}</select>`,lab=x=>s.f(...x.split('_').map(y=>isNaN(y)?y:+y));
+ return ks.map(x=>`<div class="bx" style="margin:6px 0"><div style="display:flex;justify-content:space-between"><b>${lab(x)}</b><button data-act="del" data-p="${k}.${x}">✕</button></div><textarea class="sm" rows="2" data-p="${k}.${x}">${esc(String(d[x]))}</textarea></div>`).join('')+`<div class="bx"><b>Adicionar:</b> ${s.A?sl('aA',s.A)+' ':''}${sl('aB',s.B)} <button data-act="add" data-s="${k}">Adicionar</button></div>`}
+function ed(){$('#et').innerHTML=Object.entries(SEC).map(([k,s])=>`<button data-s="${k}"${k==es?' class="on"':''}>${s.t}</button>`).join('');
+ $('#ed').innerHTML=(es=='num'?edNum:es=='rules'?edRules:es=='cfg'?edCfg:()=>edDict(es))()}
+$('#et').addEventListener('click',e=>{const b=e.target.closest('button');if(b){es=b.dataset.s;ed()}});
+$('#ed').addEventListener('input',e=>{const t=e.target,d=t.dataset;if(t.id=='sn'){en=+t.value;ed();return}if(!d.p)return;let v=t.type=='checkbox'?t.checked:t.value;
+ if(d.m=='l')v=v.split('\n').map(s=>s.trim()).filter(Boolean);if(d.m=='c')v=v.split(',').map(s=>+s.trim()).filter(x=>x>0);if(d.m=='n')v=+v;
+ sp_(d.p,v);if(d.ty){const q=d.p.split('.');q.pop();const w=gp(q.join('.'));Object.assign(w,DF[v])}
+ const r=d.p.match(/^rules\.(\d+)\.(cond)/);if(r)regen(+r[1]);if(d.ty||d.r)ed()});
+$('#ed').addEventListener('click',e=>{const t=e.target.closest('[data-act]');if(!t)return;const a=t.dataset.act,i=+t.dataset.i,j=+t.dataset.j,R=D.rules,cv=x=>isNaN(x)?x:+x;
+ if(a=='del'){const q=t.dataset.p.split('.');delete D[q[0]][q[1]];ed()}
+ else if(a=='add'){const s=SEC[t.dataset.s],A=$('#aA'),b=cv($('#aB').value),k=A?s.k(cv(A.value),b):s.k(b);D[t.dataset.s][k]=D[t.dataset.s][k]||'';ed()}
+ else if(a=='rdel'){R.splice(i,1);ed()}else if(a=='radd'){R.push({id:'',when:'false',text:'',cond:{op:'e',rows:[{t:'has',m:'any',b:3}]}});regen(R.length-1);ed()}
+ else if(a=='cadd'){R[i].cond.rows.push({t:'has',m:'any',b:1});regen(i);ed()}else if(a=='cdel'){R[i].cond.rows.splice(j,1);regen(i);ed()}
+ else if(a=='tst')$('#tr'+i).textContent=tr(i)});
+const msg=(t,w)=>{$('#em').innerHTML=`<div class="al">${w?'⚠ ':''}${esc(t)}</div>`};
+function imp(txt,nome){try{const d=JSON.parse(txt);if(!d||typeof d!='object'||!d.num||!d.cfg||!d.cfg.f||!d.cfg.idades||!Array.isArray(d.rules))throw Error('o arquivo não parece ser de dados do mapa (faltam num, cfg ou rules)');
+ for(const k in DEF)if(!(k in d))d[k]=DEF[k];delete d.versao;D=d;try{localStorage.setItem('mnn3',JSON.stringify(D))}catch(e){}sj();run();msg(`Dados importados${nome?' de '+nome:''}: ${Object.keys(D.num).length} números, ${D.rules.length} regras, ${Object.keys(D.cic).length} textos de ciclos/desafios. Já estão salvos neste navegador.`)}
+ catch(e){msg('Importação cancelada, os dados atuais foram mantidos: '+e.message,1)}}
+async function exp(){const j=JSON.stringify({versao:1,...D},null,1);let dl=null;try{dl=window.claude?await claude.use('downloads'):null}catch(e){}
+ if(dl){try{await dl.save({filename:'numerologia-dados.json',data:j});msg('Arquivo numerologia-dados.json oferecido para download.');return}catch(e){if(e&&e.code=='declined'){msg('Download cancelado.');return}}}
+ try{const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([j],{type:'application/json'}));a.download='numerologia-dados.json';document.body.appendChild(a);a.click();a.remove();msg('Arquivo gerado. Se o download não iniciar, use “Avançado: JSON completo” e copie o conteúdo.')}catch(e){msg('Não foi possível gerar o arquivo; use Avançado → Copiar JSON.',1)}}
+$('#ex').onclick=exp;$('#imb').onclick=()=>$('#im').click();
+$('#im').addEventListener('change',async e=>{const f=e.target.files[0];if(!f)return;try{imp(await f.text(),f.name)}catch(er){msg('Não foi possível ler o arquivo.',1)}e.target.value=''});
+$('#sv2').onclick=()=>{try{localStorage.setItem('mnn3',JSON.stringify(D))}catch(e){}sj();run();$('#em').innerHTML='<div class="al">Salvo e recalculado.</div>'};
+function sj(){$('#js').value=JSON.stringify(D,null,1);ed()}
+$('#sv').onclick=()=>{try{D=JSON.parse($('#js').value);$('#em').innerHTML='<div class="al">Dados aplicados.</div>';ed();try{localStorage.setItem('mnn3',JSON.stringify(D))}catch(e){}run()}catch(e){$('#em').innerHTML='<div class="al">JSON inválido: '+esc(e.message)+'</div>'}};
+$('#rst').onclick=()=>{D=JSON.parse(JSON.stringify(DEF));try{localStorage.removeItem('mnn3')}catch(e){}sj();run()};
+$('#cp').onclick=()=>{try{navigator.clipboard.writeText($('#js').value)}catch(e){}};
+const t=new Date();$('#rf').value=t.getFullYear()+'-'+String(t.getMonth()+1).padStart(2,'0')+'-'+String(t.getDate()).padStart(2,'0');sj();
+</script></body></html>
